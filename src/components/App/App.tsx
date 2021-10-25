@@ -3,10 +3,10 @@ import { Layout } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import HomePage from '../../Pages/HomePage';
-import NotFoundPage from '../../Pages/NotFoundPage/NotFoundPage';
-import OperatorPage from '../../Pages/OperatorPage';
-import ResultPage from '../../Pages/ResultPage';
+import HomePage from '../../pages/HomePage';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
+import OperatorPage from '../../pages/OperatorPage';
+import ResultPage from '../../pages/ResultPage';
 
 const { Header, Content } = Layout;
 
