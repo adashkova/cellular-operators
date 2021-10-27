@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { Row, Button, Typography } from 'antd';
 import { fillSchema } from '../../validationSchema';
 import { IFillValues } from '../../interfaces';
@@ -68,12 +68,8 @@ const StyledInput = styled(MaskedInput)`
 
 const FillForm: FC = () => {
   const initialValues: IFillValues = { phoneNumber: '', sum: '' };
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const history = useHistory();
 
-  const handlerLoading = () => {
-    setIsLoading(!isLoading);
-  };
+  const history = useHistory();
 
   const phoneNumberMask = [
     '(',
@@ -97,15 +93,24 @@ const FillForm: FC = () => {
       initialValues={initialValues}
       validationSchema={fillSchema}
       validateOnChange
-      onSubmit={() => {
-        handlerLoading();
+      onSubmit={(
+        values: IFillValues,
+        { setSubmitting }: FormikHelpers<IFillValues>
+      ) => {
         setTimeout(() => {
-          handlerLoading();
           history.push('/result');
+          setSubmitting(false);
         }, 2000);
       }}
     >
-      {({ errors, touched, isValid, handleChange, handleBlur }) => (
+      {({
+        errors,
+        touched,
+        isValid,
+        handleChange,
+        handleBlur,
+        isSubmitting,
+      }) => (
         <Form>
           <StyledRow justify="center">
             <StyledInput
@@ -143,7 +148,7 @@ const FillForm: FC = () => {
           <StyledRow justify="center">
             <StyledButton
               type="primary"
-              loading={isLoading}
+              loading={isSubmitting}
               htmlType="submit"
               disabled={!isValid}
             >
